@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block content %}
+<br />
+<h1>{{ corporation.name }}</h1>
+<br />
+<p>Ticker: {{ corporation.ticker }}</p>
+<p>{{ corporation.description }}</p>
+<p>Valor actual: {{ corporation.current_value }}</p>
+
+<a href="{% url 'stocks:stocks_list' %}" class="btn btn-secondary">Volver a la lista</a>
+<a href="{% url 'stocks:portfolio' %}" class="btn btn-secondary">Volver a mi portfolio</a>
+{% endblock %}

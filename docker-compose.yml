@@ -1,0 +1,61 @@
+services:
+  # web:
+  #   build: .
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   volumes:
+  #     - .:/code
+  #   ports:
+  #     - "8000:8000"
+
+  # apache:
+  #   build: 
+  #     context: .
+  #     dockerfile: apache/Dockerfile
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - ./:/code
+  #     - ./apache/django.lan.conf:/etc/apache2/sites-enabled/django.lan.conf
+  #   environment:
+  #     - PYTHONPATH=/code:$PYTHONPATH      
+  #   networks:
+  #      rede_test:
+  #       aliases:
+  #         - django.lan
+
+
+  app:
+    build: 
+      context: .
+      dockerfile: app/Dockerfile
+    volumes:
+      - ./:/code
+
+    environment:
+      - PYTHONPATH=/code:$PYTHONPATH      
+    networks:
+       rede_test:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      ./nginx/django.lan.conf:/etc/nginx/conf.d/django.lan.conf
+    networks:
+       rede_test:
+        aliases:
+          - django.lan
+  cliente:
+    hostname: cliente
+    image: brunosct/debian12-cliente-firefox
+    networks:
+      - rede_test
+    environment:
+    - DISPLAY=${DISPLAY}
+    volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix   
+
+networks:
+  rede_test:          

@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<br />
+<h1>Corporaciones</h1>
+<div class="row">
+    {% for corporation in corporations %}
+    <div class="card m-3" style="width: 18rem">
+        <div class="card-body">
+            <h5 class="card-title">{{ corporation.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ corporation.ticker }}</h6>
+            <p><strong>Sector:</strong> {{ corporation.sector }}</p>
+            <p><strong>País:</strong> {{ corporation.country }}</p>
+            <a href="{% url 'stocks:detail' corporation.ticker %}" class="card-link">Más información</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<a href="{% url 'stocks:portfolio' %}" class="btn btn-secondary">Volver a mi portfolio</a>
+
+{% endblock %}

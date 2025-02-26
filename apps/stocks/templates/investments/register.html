@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">Registrarse</h2>
+                    <form method="post" action="{% url 'stocks:register' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }} <!-- 🔹 Renderiza el formulario de Django -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Registrarse</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p class="mb-0">¿Ya tienes una cuenta? <a href="{% url 'stocks:login' %}">Inicia sesión</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

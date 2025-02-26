@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Actualizar Inversión</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.stocks_amount.label_tag }}
+            {{ form.stocks_amount }}
+        </div>
+        <div class="mb-3">
+            {{ form.price_at_purchase.label_tag }}
+            {{ form.price_at_purchase }}
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{% url 'stocks:portfolio' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

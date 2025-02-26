@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<br />
+<h1>Investments</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Ticker</th>
+            <th scope="col">Date</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Buy Price</th>
+            <th scope="col">Total Investment</th>
+            <th scope="col">Current Value</th>
+            <th scope="col">Profit/Loss</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for investment in investments %}
+        <tr>
+            <td>
+                <a href="{% url 'stocks:detail' investment.corporation.ticker %}">
+                    {{ investment.corporation.ticker }}</a>
+            </td>
+            <td>{{ investment.created_at|date:"d-m-Y" }}</td>
+            <td>{{ investment.stocks_amount }}</td>
+            <td>{{ investment.price_at_purchase|floatformat:2 }}$</td>
+            <td>{{ investment.total_investment|floatformat:2 }}$</td>
+            <td>current_value</td>
+            <td>profit_loss</td>
+            <td>
+                <!-- Botón de Actualizar -->
+                <a href="{% url 'stocks:update_investment' investment.corporation.ticker investment.id %}"
+                    class="btn btn-success btn-sm">
+                    📝 Actualizar
+                </a>
+                <!-- Botón de Eliminar -->
+                <form action="{% url 'stocks:delete_investment' investment.corporation.ticker investment.id %}"
+                    method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro?');">
+                        🗑️ Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<a href="{% url 'stocks:stocks_list' %}" class="btn btn-primary">See Corporations List</a>
+
+<br />
+<hr />
+
+<!-- Formulario para añadir inversiones -->
+<form action="{% url 'stocks:portfolio' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Add new investment</button>
+</form>
+
+{% endblock %}
