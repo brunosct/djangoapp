@@ -14,9 +14,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 
 
-RUN a2enmod wsgi
-RUN a2enmod ssl
-
 # CMD tail -f /dev/null
 CMD ["uwsgi", "--ini", "/code/app/uwsgi.ini"]
 
