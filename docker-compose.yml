@@ -31,9 +31,9 @@ services:
       dockerfile: app/Dockerfile
     volumes:
       - ./:/code
-
-    environment:
-      - PYTHONPATH=/code:$PYTHONPATH      
+    # command: tail -f /dev/null
+    # environment:
+    #   - PYTHONPATH=/code:$PYTHONPATH      
     networks:
        rede_test:
 
@@ -42,7 +42,7 @@ services:
     ports:
       - 80:80
     volumes:
-      ./nginx/django.lan.conf:/etc/nginx/conf.d/django.lan.conf
+      - ./nginx/django.lan.conf:/etc/nginx/conf.d/django.lan.conf
     networks:
        rede_test:
         aliases:
